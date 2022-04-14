@@ -1,0 +1,173 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <!-- A gazebo links attacher -->
+    <plugin name="ros_link_attacher_plugin" filename="libgazebo_ros_link_attacher.so"/>
+    
+    <physics type="ode">
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>100</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.9</erp>
+          <contact_max_correcting_vel>0.1</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>-1</real_time_update_rate>
+      <!-- <max_step_size>0.0020</max_step_size> -->
+    </physics>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- drone with test_box -->
+    <model name="drone1">
+      <include>
+        <uri>model://drone1</uri>
+      </include>
+    </model>
+
+    <!--
+    <model name="drone2">
+      <pose>1.0 0 0 0 0 0</pose>
+      <include>
+        <uri>model://drone2</uri>
+      </include>
+    </model>
+    -->
+
+    <!-- test_box -->
+    <model name="test_box">
+      <pose>1.0 1.0 0.005 0 0 0</pose>
+      <link name="link">
+         <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>0.9</mass>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.4 0.4 0.4</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.5</mu>
+                <mu2>0.5</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>10000000.0</kp>
+                <kd>1.0</kd>
+                <max_vel>0.0</max_vel>
+                <min_depth>0.003</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.4 0.4 0.4</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- landing pad -->
+    <!--
+    <model name="irlock_beacon_01">
+      <pose>1.0 -1.0 0.005 0 0 0</pose>
+      <link name="link">
+         <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>3.0</mass>
+          <inertia>
+            <ixx>0.019</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 1.0 0.02</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1e+12</kp>
+                <kd>1</kd>
+                <max_vel>10</max_vel>
+                <min_depth>0.003</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual2">
+          <geometry>
+            <box>
+              <size>1.0 1.0 0.018</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    -->
+
+  </world>
+</sdf>
